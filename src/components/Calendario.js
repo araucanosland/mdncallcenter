@@ -8,6 +8,11 @@ class Calendario extends Component {
     super(props);
   }
 
+
+  handleChange = e => {
+     this.setState({ fechaProxGestion: e.target.value })
+  }
+
   render() {
     return (
 
@@ -16,7 +21,9 @@ class Calendario extends Component {
           className="calendario"
           id="FechaProxGestion"
           name="FechaProxGestion"
-          onClick={this.props.onClick} value={this.props.value} />
+          onClick={this.props.onClick}
+          value={this.props.value}
+          onChange={this.handleChange} />
         <InputGroupAddon><FaCalendar /></InputGroupAddon>
       </InputGroup>
 

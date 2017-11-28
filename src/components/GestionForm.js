@@ -43,7 +43,7 @@ class GestionForm extends Component {
 
 
                   <Container>
-                      <h5>Gestión</h5>  
+                      <h5>Gestión</h5>
                       <hr />
 
                       <Row>
@@ -71,6 +71,7 @@ class GestionForm extends Component {
                                 onChange={this.handleChange.bind(this)}
                                 locale="es-cl"
                                 className="form-control"
+                                dateFormat="DD-MM-YYYY"
                               />
 
                           </FormGroup>

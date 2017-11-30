@@ -20,7 +20,7 @@ export const  busquedaRut = AfiliadoRut => {
   return function(dispatch){
       dispatch(requestAfiliado(AfiliadoRut));
       return axios({
-        url: 'http://localhost/motor/api/stage/call-center/afiliado-search/' + AfiliadoRut,
+        url: '/afiliado-search/' + AfiliadoRut,
         method:'get',
         responseType: 'json',
         timeout: 20000

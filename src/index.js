@@ -6,9 +6,15 @@ import reducer from './reducers'
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 import thunkMiddleware from 'redux-thunk';
+import axios from 'axios';
+
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles.css';
+
+//Axios defaults
+axios.defaults.baseURL = 'http://localhost/motor/api/stage/call-center';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const createAppStore = compose(
 	applyMiddleware(thunkMiddleware)

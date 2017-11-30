@@ -7,7 +7,8 @@ class Content extends Component {
 
     static propTypes = {
       actions: PropTypes.object.isRequired,
-      busqueda: PropTypes.object
+      busqueda: PropTypes.object,
+      gestados: PropTypes.object
     }
 
 
@@ -17,20 +18,19 @@ class Content extends Component {
 
     render() {
 
-      let { busqueda, actions } = this.props;
+      const { busqueda, actions, gestados } = this.props;
 
       return (
           <div className="content">
-
               <AfiliadoForm busqueda={busqueda}  />
-
-              <GestionForm />
+              {
+                typeof busqueda.showGst !== 'undefined' && busqueda.showGst == true
+                ? <GestionForm gestados={gestados} onGstLoad={actions.estados} onGstSubmit={actions.saveGestion} />
+                : null
+              }
           </div>
       );
     }
-
-
-
 }
 
 export default Content;

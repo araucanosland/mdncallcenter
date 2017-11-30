@@ -29,8 +29,8 @@ class Header extends Component {
     render() {
       return (
         <div>
-          <Navbar color="dark" dark expand="md" fixed="true">
-            <NavbarBrand href="/">Buscador de Afiliados</NavbarBrand>
+          <Navbar color="info" dark expand="md" fixed="true">
+            <NavbarBrand href="/">MDN Buscador de Afiliados</NavbarBrand>
             <Col md={{ size: 3, offset: 2 }}>
               <Buscador onSearch={this.handleSave} />
             </Col>

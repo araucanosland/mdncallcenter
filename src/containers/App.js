@@ -4,27 +4,33 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Content from './Content';
+import Spinner from '../components/Spinner';
 
 import * as searchActions from '../actions/buscadorActions';
+import * as estadoActions from '../actions/estados';
+import * as gestionActions from '../actions/gestion';
 
-const App = ({busqueda, actions}) => (
+const App = ({state,  actions}) => (
   <div className="App">
       <Header doSearch={actions.busquedaRut} />
-      <Content busqueda={busqueda} actions={actions} />
+      <Content busqueda={state.busquedaReducer} gestados={state.estados} actions={actions} />
+      {state.busquedaReducer.isLoading || state.estados.isLoading || state.gestion.isLoading ? <Spinner /> : ''}
   </div>
 )
 
 App.propTypes = {
   actions: PropTypes.object.isRequired,
-  busqueda: PropTypes.object
+  state: PropTypes.object
 }
 
 const mapStateToProps = state => ({
-  busqueda: state.busquedaReducer
+  state: state
+  /*busqueda: state.busquedaReducer,
+  gestados: state.estados*/
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(searchActions, dispatch)
+    actions: bindActionCreators({...searchActions,...estadoActions, ...gestionActions}, dispatch)
 })
 
 export default connect(

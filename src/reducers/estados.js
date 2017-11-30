@@ -1,16 +1,14 @@
-import * as types from '../constants/BuscadorActionTypes';
+import * as types from '../constants/GestionActionTypes';
 
 const initialState = {
-    AfiliadoRut: '',
     isLoading: false,
     error: false,
-    data: {},
-    showGst: false
+    data: {}
 }
 
 
 
-const busqueda = (state = initialState, action) => {
+const estados = (state = initialState, action) => {
 
 /*console.log("Reducer Busqueda!!!");
 console.log("-----State")
@@ -21,29 +19,26 @@ console.log("###############################");*/
 
 
   switch (action.type) {
-    case types.HANDLE_SEARCH :
+    case types.FECHT_STATUS :
       return {
-        AfiliadoRut: action.AfiliadoRut,
         isLoading: true,
         error: false
       }
-    case types.SEARCH_COMPLETED_SUCCESS :
+    case types.STATUS_FETCHED_SUCCESS :
       return {
         isLoading: false,
         error: false,
-        data: action.data,
-        showGst: true
+        data: action.data
       }
-    case types.SEARCH_COMPLETED_ERROR :
+    case types.STATUS_FETCHED_ERROR :
       return {
         isLoading: false,
         error: true,
-        data: action.data,
-
+        data: action.data
       }
     default:
       return state;
   }
 }
 
-export default busqueda
+export default estados

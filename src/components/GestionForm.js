@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import serialize from 'form-serialize';
-
+import store from '../store';
 
 //Components
 import Calendario from './Calendario';
@@ -19,7 +19,6 @@ class GestionForm extends Component {
     static propTypes = {
       onGstLoad: PropTypes.func.isRequired,
       onGstSubmit: PropTypes.func.isRequired,
-      gestados: PropTypes.object,
       busqueda: PropTypes.object
     }
 
@@ -27,9 +26,8 @@ class GestionForm extends Component {
       super(props);
 
       this.state = {
-        startDate: moment(),
         hijos: [],
-        datosForm: {Estado: "", SubEstado: "", FechaProxGestion: "", Comentarios: ""}
+        datosForm: {Oficina: "", FechaProxGestion: "", Comentarios: ""}
       };
 
       Calendario.propTypes = {
@@ -49,28 +47,6 @@ class GestionForm extends Component {
       this.props.onGstLoad();
     }
 
-    handleEstadoChange = e => {
-      const { gestados } = this.props;
-      let padre = e.target;
-      var hijo = document.getElementById('SubEstado');
-
-
-      if(padre.value == 0)
-      {
-          this.setState({ hijos: [] })
-      }
-      else
-      {
-        gestados.data.map(gs=>{
-          if(gs.EstadoId == padre.options[padre.selectedIndex].value)
-          {
-            let estas = [{EstadoId:"", Nombre:"Seleccione"}, ...gs.Hijos]
-            this.setState({ hijos: estas })
-          }
-        })
-      }
-    }
-
     handleSubmitForm = e => {
       e.preventDefault();
       const data = serialize(e.target, { hash: true })
@@ -86,15 +62,15 @@ class GestionForm extends Component {
 
     render() {
 
-      const { gestados } = this.props;
+      const { oficinas } = store.getState();
       const { hijos } = this.state;
 
-      let estados = [{
-        EstadoId: "",
+      let _oficinas = [{
+        Id: "",
         Nombre: "Seleccione"
       }]
-      if(typeof gestados.data !== "undefined"){
-        estados = [...estados, ...gestados.data]
+      if(typeof oficinas.data !== "undefined"){
+        _oficinas = [..._oficinas, ...oficinas.data]
       }
 
       return (
@@ -105,29 +81,20 @@ class GestionForm extends Component {
                       <h5>Gestión</h5>
                       <hr />
                       <Row>
-                        <Col xs="4">
+                        <Col xs="6">
                           <FormGroup>
-                            <Label for="Estado">Estado</Label>
-                            <Input type="select" name="Estado" id="Estado" onChange={this.handleEstadoChange} required>
-                              {estados.map(esta=>{
-                                return (<option key={esta.EstadoId} value={esta.EstadoId} >{esta.Nombre}</option>)
+                            <Label for="Oficina">Oficina Derivación</Label>
+                            <Input type="select" name="Oficina" id="Oficina" required>
+                              {_oficinas.map(ofi=>{
+                                return (<option key={ofi.Id} value={ofi.Id} >{ofi.Nombre}</option>)
                               })}
                             </Input>
                           </FormGroup>
                         </Col>
-                        <Col xs="4">
+
+                        <Col xs="6">
                           <FormGroup>
-                            <Label for="SubEstado">Sub Estado</Label>
-                            <Input type="select" name="SubEstado" id="SubEstado" required>
-                              {hijos.map(hijo=>{
-                                return (<option key={hijo.EstadoId} value={hijo.EstadoId} >{hijo.Nombre}</option>)
-                              })}
-                            </Input>
-                          </FormGroup>
-                        </Col>
-                        <Col xs="4">
-                          <FormGroup>
-                            <Label for="FechaProxGestion">Fecha Prox. Gestión</Label>
+                            <Label for="FechaProxGestion">¿Existe fecha de visita?</Label>
 
                               <DatePicker
                                 customInput={<Calendario />}
@@ -144,7 +111,7 @@ class GestionForm extends Component {
                         <Col xs="12">
                           <FormGroup>
                             <Label for="Comentarios">Texto Gestión</Label>
-                            <Input type="textarea" name="Comentarios" id="Comentarios" required />
+                            <Input type="textarea" name="Comentarios" id="Comentarios" />
                           </FormGroup>
                         </Col>
                       </Row>

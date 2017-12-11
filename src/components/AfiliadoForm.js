@@ -45,9 +45,11 @@ class AfiliadoForm extends Component {
 
       const { busqueda }  = this.props;
       let affildt = {
-            "Nombres":"",
-            "Rut":"",
-            "Segmento":"",
+            "Afiliado": {
+              "Nombres":"",
+              "Rut":"",
+              "Segmento":""
+            },
             "OficinaAsinacion":"",
             "PreAprobado":"",
             "Empresa":{"Rut":"","RazonSocial":""}
@@ -70,19 +72,19 @@ class AfiliadoForm extends Component {
                         <Col xs="2">
                           <FormGroup>
                             <Label for="Rut">Rut</Label>
-                            <Input type="text" name="Rut" id="Rut" value={rut.format(affildt.Rut)}  disabled />
+                            <Input type="text" name="Rut" id="Rut" value={rut.format(affildt.Afiliado.Rut)}  disabled />
                           </FormGroup>
                         </Col>
                         <Col xs="5">
                           <FormGroup>
                             <Label for="Nombres">Nombres</Label>
-                            <Input type="text" name="Nombres" id="Nombres" value={affildt.Nombres} disabled />
+                            <Input type="text" name="Nombres" id="Nombres" value={affildt.Afiliado.Nombres} disabled />
                           </FormGroup>
                         </Col>
                         <Col xs="2">
                           <FormGroup>
                             <Label for="Segmento">Segmento</Label>
-                            <Input type="text" name="Segmento" id="Segmento" value={affildt.Segmento} disabled />
+                            <Input type="text" name="Segmento" id="Segmento" value={affildt.Afiliado.Segmento} disabled />
                           </FormGroup>
                         </Col>
                         <Col xs="3">

@@ -2,18 +2,33 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from './Header';
-import Content from './Content';
+import { createBrowserHistory } from 'history';
+import { Router, Route } from 'react-router-dom';
+import { PrivateRoute } from '../components/PrivateRoute';
+
+import Main from './Main';
+import Login from '../components/Login';
 import Spinner from '../components/Spinner';
 
 import * as searchActions from '../actions/buscadorActions';
 import * as estadoActions from '../actions/estados';
 import * as gestionActions from '../actions/gestion';
+import * as oficinasActions from '../actions/oficinas';
+
+
+
+const history = createBrowserHistory();
+
 
 const App = ({state,  actions}) => (
   <div className="App">
-      <Header doSearch={actions.busquedaRut} />
-      <Content busqueda={state.busquedaReducer} gestados={state.estados} actions={actions} />
+      <Router history={history}>
+          <div>
+              <PrivateRoute exact path="/" component={Main} actions={actions} state={state} />
+              <Route path="/login/:ejx" component={Login} />
+
+          </div>
+      </Router>
       {state.busquedaReducer.isLoading || state.estados.isLoading || state.gestion.isLoading ? <Spinner /> : ''}
   </div>
 )
@@ -30,7 +45,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...searchActions,...estadoActions, ...gestionActions}, dispatch)
+    actions: bindActionCreators({...searchActions,...estadoActions, ...gestionActions, ...oficinasActions}, dispatch)
 })
 
 export default connect(

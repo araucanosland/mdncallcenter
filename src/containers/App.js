@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createBrowserHistory } from 'history';
-import { Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { PrivateRoute } from '../components/PrivateRoute';
 
 import Main from './Main';
@@ -17,12 +17,10 @@ import * as oficinasActions from '../actions/oficinas';
 
 
 
-const history = createBrowserHistory();
-
 
 const App = ({state,  actions}) => (
   <div className="App">
-      <Router history={history}>
+      <Router>
           <div>
               <PrivateRoute exact path="/" component={Main} actions={actions} state={state} />
               <Route path="/login/:ejx" component={Login} />

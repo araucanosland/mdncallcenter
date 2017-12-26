@@ -10,9 +10,14 @@ import store from './store'
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles.css';
 
+
+/*if (!process.env.BROWSER) {
+  global.window = {};
+}*/
+
 //Axios defaults
-axios.defaults.baseURL = 'http://serv-280/motor/api/stage/call-center';
-//axios.defaults.baseURL = 'http://localhost/motor/api/stage/call-center';
+//axios.defaults.baseURL = 'http://serv-280/motor/api/stage/call-center';
+axios.defaults.baseURL = 'http://localhost/motor/api/stage/call-center';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 ReactDOM.render(
@@ -20,4 +25,4 @@ ReactDOM.render(
     <App />
   </Provider>,
   document.getElementById('root'));
-registerServiceWorker();
+//registerServiceWorker();

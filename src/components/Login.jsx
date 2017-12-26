@@ -13,7 +13,7 @@ class Login extends Component{
     const { ejx } = this.props.match.params;
 
     let yuser = { Id:ejx,Name:'Carlos Pradenas'}
-    localStorage.setItem('user', yuser);
+    localStorage.setItem('user', JSON.stringify(yuser));
 
 
 

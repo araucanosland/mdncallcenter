@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { busquedaRut } from '../actions/buscadorActions';
 
 
-
 class Buscador extends Component {
 
     constructor(props) {
@@ -26,7 +25,15 @@ class Buscador extends Component {
         const text = document.getElementById("inputSearch").value.trim()
         this.props.onSearch(text)
         this.setState({ AfiliadoRut: '' })
+
+
       }
+    }
+
+    handleSubmitButton = e => {
+        const text = document.getElementById("inputSearch").value.trim()
+        this.props.onSearch(text)
+        this.setState({ AfiliadoRut: '' })
     }
 
     handleChange = e => {
@@ -45,7 +52,7 @@ class Buscador extends Component {
                         onChange={this.handleChange}
                         id="inputSearch"
                   />
-                 <InputGroupButton><Button color="secondary" onClick={this.handleSubmit}><FaSearch /></Button></InputGroupButton>
+                 <InputGroupButton><Button color="secondary" onClick={this.handleSubmitButton}><FaSearch /></Button></InputGroupButton>
                </InputGroup>
         </div>
       );

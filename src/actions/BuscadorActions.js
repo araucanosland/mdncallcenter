@@ -27,7 +27,7 @@ export const  busquedaRut = AfiliadoRut => {
       }).then(function(response){
         dispatch(reciveAfidata(response.data));
       }).catch(function(response){
-				dispatch(reciveError(response.data));
-			})
+		dispatch(reciveError(response.data));
+	  })
   }
 }

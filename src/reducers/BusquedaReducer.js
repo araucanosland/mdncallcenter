@@ -5,7 +5,8 @@ const initialState = {
     isLoading: false,
     error: false,
     data: {},
-    showGst: false
+    showGst: false,
+
 }
 
 
@@ -38,8 +39,7 @@ console.log("###############################");*/
       return {
         isLoading: false,
         error: true,
-        data: action.data,
-
+        data: action.data
       }
     default:
       return state;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import isEmptyObject from 'is-empty-object';
 import numeral from 'numeral';
 import rut from 'fi-rut';
+import store from '../store'
 
 class AfiliadoForm extends Component {
 

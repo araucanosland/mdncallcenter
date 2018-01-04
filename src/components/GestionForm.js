@@ -135,7 +135,7 @@ class GestionForm extends Component {
                             <Label for="NuevoFono">¿Cual es el numero de contacto?</Label>
                             <InputGroup>
                               <InputGroupAddon>+56</InputGroupAddon>
-                              <Input type="text" name="NuevoFono" id="NuevoFono" />
+                              <Input type="number" name="NuevoFono" id="NuevoFono" />
                             </InputGroup>
                           </FormGroup>
                         </Col>
@@ -172,7 +172,7 @@ class GestionForm extends Component {
                       <Row>
                         <Col xs="12">
                           <FormGroup>
-                            <Label for="Comentarios">Texto Gestión</Label>
+                            <Label for="Comentarios">Observación</Label>
                             <Input type="textarea" name="Comentarios" id="Comentarios" />
                           </FormGroup>
                         </Col>

@@ -14,21 +14,29 @@ import * as searchActions from '../actions/buscadorActions';
 import * as estadoActions from '../actions/estados';
 import * as gestionActions from '../actions/gestion';
 import * as oficinasActions from '../actions/oficinas';
+import * as accesoActions from '../actions/acceso';
 
 
 
+//<Route path="/login" component={Login} onLogin={accesoActions.handleLogin} />
 
 const App = ({state,  actions}) => (
+
   <div className="App">
       <Router>
           <div>
               <PrivateRoute exact path="/" component={Main} actions={actions} state={state} />
-              <Route path="/login/:ejx" component={Login} />
+              
+              <Route
+                path='/login'
+                render={(props) => <Login {...props} onLogin={actions.handleLogin}  />}
+              />
 
           </div>
       </Router>
       {state.busquedaReducer.isLoading || state.estados.isLoading || state.gestion.isLoading ? <Spinner /> : ''}
   </div>
+
 )
 
 App.propTypes = {
@@ -43,7 +51,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...searchActions,...estadoActions, ...gestionActions, ...oficinasActions}, dispatch)
+    actions: bindActionCreators({...searchActions,...estadoActions, ...gestionActions, ...oficinasActions, ...accesoActions}, dispatch)
 })
 
 export default connect(

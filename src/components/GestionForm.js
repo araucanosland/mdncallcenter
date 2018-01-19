@@ -71,7 +71,6 @@ class GestionForm extends Component {
         frmVisible: false        
       })
 
-
       this.props.onGstSubmit(datosForm);
 
     }

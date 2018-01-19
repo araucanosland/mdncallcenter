@@ -27,6 +27,10 @@ class Header extends Component {
     }
 
     render() {
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      console.log(user);
+      
       return (
         <div>
           <Navbar color="info" dark expand="md" fixed="true">
@@ -34,6 +38,12 @@ class Header extends Component {
             <Col md={{ size: 3, offset: 2 }}>
               <Buscador onSearch={this.handleSave} />
             </Col>
+
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="#">{user.Name}</NavLink>
+              </NavItem>
+            </Nav>
           </Navbar>
         </div>
       );

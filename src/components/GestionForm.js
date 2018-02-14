@@ -28,13 +28,14 @@ class GestionForm extends Component {
       const usuarioLogeado = JSON.parse(localStorage.getItem("user"))
       const busquedaState = store.getState().busquedaReducer;
       
+
       this.state = {
         hijos: [],
         datosForm: {
                       Oficina: "", 
                       FechaProxGestion: "", 
                       Comentarios: "", 
-                      RutEjecutivo: usuarioLogeado.Id, 
+                      RutEjecutivo: usuarioLogeado.Rut, 
                       Asignacion: busquedaState.data.Asignacion, 
                       RutAfiliado: busquedaState.data.Afiliado.ClaveRut
         },

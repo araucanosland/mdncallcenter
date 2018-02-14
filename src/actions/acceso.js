@@ -33,7 +33,6 @@ export const handleLogin = userdata => {
         dispatch(reciveLogin(response.data)); 
       }).catch(function(response){
         dispatch(reciveError(response.data));
-        
 	  })
   }
 }

@@ -23,7 +23,8 @@ class Calendario extends Component {
           name="FechaProxGestion"
           onClick={this.props.onClick}
           value={this.props.value}
-          onChange={this.handleChange} />
+          onChange={this.handleChange}
+          required/>
         <InputGroupAddon><FaCalendar /></InputGroupAddon>
       </InputGroup>
 

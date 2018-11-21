@@ -29,8 +29,6 @@ class Header extends Component {
     render() {
       const user = JSON.parse(localStorage.getItem("user"));
 
-      console.log(user);
-      
       return (
         <div>
           <Navbar color="info" dark expand="md" fixed="true">

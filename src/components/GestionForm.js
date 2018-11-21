@@ -27,17 +27,18 @@ class GestionForm extends Component {
       super(props);
       const usuarioLogeado = JSON.parse(localStorage.getItem("user"))
       const busquedaState = store.getState().busquedaReducer;
-      
+
 
       this.state = {
         hijos: [],
         datosForm: {
-                      Oficina: "", 
-                      FechaProxGestion: "", 
-                      Comentarios: "", 
-                      RutEjecutivo: usuarioLogeado.Rut, 
-                      Asignacion: busquedaState.data.Asignacion, 
-                      RutAfiliado: busquedaState.data.Afiliado.ClaveRut
+                      Oficina: "",
+                      FechaProxGestion: "",
+                      Comentarios: "",
+                      RutEjecutivo: usuarioLogeado.Rut,
+                      Asignacion: busquedaState.data.Asignacion,
+                      RutAfiliado: busquedaState.data.Afiliado.ClaveRut,
+                      HorarioPreferencia: ""
         },
         otrVisible: false,
         frmVisible: true
@@ -59,25 +60,24 @@ class GestionForm extends Component {
 
     componentWillMount(){
       this.props.onGstLoad();
-      
+
     }
 
     handleSubmitForm = e => {
       e.preventDefault();
       const data = serialize(e.target, { hash: true })
       const { datosForm }  =  this.state;
-     
+
       this.setState({
         datosForm: Object.assign(datosForm, data),
-        frmVisible: false        
+        frmVisible: false
       })
-
       this.props.onGstSubmit(datosForm);
 
     }
 
     handleContactChange = e => {
-      
+
       if(e.target.value === 'OTR')
       {
         this.setState({
@@ -85,14 +85,14 @@ class GestionForm extends Component {
         })
         document.getElementById('NuevoFono').setAttribute('required','required')
       }
-      else 
+      else
       {
         this.setState({
           otrVisible: false
         })
         document.getElementById('NuevoFono').removeAttribute('required')
       }
-      
+
     }
 
     render() {
@@ -123,7 +123,7 @@ class GestionForm extends Component {
                             <Input type="select" name="FonoContact" id="FonoContact" onChange={this.handleContactChange} required>
                                 <option value="">Seleccione</option>
                               {busquedaState.data.Fonos.map(fono=>{
-                                  return (<option key={fono.Valor_contacto} value={fono.Valor_contacto} >{fono.Valor_contacto}</option>)
+                                  return (<option key={fono.ValorDato} value={fono.ValorDato} >{fono.ValorDato}</option>)
                                 })}
                                 <option value="OTR">Otro</option>
                             </Input>
@@ -143,7 +143,7 @@ class GestionForm extends Component {
                       <h5>Gestión</h5>
                       <hr />
                       <Row>
-                        <Col xs="6">
+                        <Col xs="4">
                           <FormGroup>
                             <Label for="Oficina">Oficina Derivación</Label>
                             <Input type="select" name="Oficina" id="Oficina" required>
@@ -154,9 +154,9 @@ class GestionForm extends Component {
                           </FormGroup>
                         </Col>
 
-                        <Col xs="6">
+                        <Col xs="4">
                           <FormGroup>
-                            <Label for="FechaProxGestion">¿Existe fecha de visita?</Label>
+                            <Label for="FechaProxGestion">Fecha de contacto sucursal</Label>
 
                               <DatePicker
                                 customInput={<Calendario />}
@@ -166,6 +166,26 @@ class GestionForm extends Component {
                                 className="form-control"
                                 dateFormat="DD-MM-YYYY"
                               />
+                          </FormGroup>
+                        </Col>
+                        <Col xs="4">
+                          <FormGroup>
+                            <Label for="Oficina">Horario de contacto sucursal</Label>
+                            <Input type="select" name="HorarioPreferencia" id="HorarioPreferencia" required>
+                              <option value="">Seleccione</option>
+                              <optgroup label="Generales">
+                                  <option>Durante la Mañana</option>
+                                  <option>Durante la Tarde</option>
+                                  <option>Cualquier Horario</option>
+                              </optgroup>
+                              <optgroup label="Especificas">
+                                  <option>09:00-11:00</option>
+                                  <option>11:00-13:00</option>
+                                  <option>13:00-15:00</option>
+                                  <option>15:00-17:00</option>
+                                  <option>17:00-19:00</option>
+                              </optgroup>
+                            </Input>
                           </FormGroup>
                         </Col>
                       </Row>
@@ -190,8 +210,8 @@ class GestionForm extends Component {
                 <Container>
                   <Alert color="success">
                     Derivación realizada con éxito.
-                  </Alert>       
-                </Container>         
+                  </Alert>
+                </Container>
               </Col>
               </div>
           </div>

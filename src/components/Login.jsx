@@ -22,11 +22,6 @@ class Login extends Component{
 	}
 
 
-	/*componentDidMount(){
-		
-		
-	}*/
-
 	componentWillUpdate(){
 		const { acceso } = store.getState();
 

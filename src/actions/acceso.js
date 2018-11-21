@@ -24,7 +24,7 @@ export const handleLogin = userdata => {
   return function(dispatch){
       dispatch(requestLogin(userdata));
       return axios({
-        url: 'http://localhost/motor/api/Auth/call/authenticate',
+        url: 'http://serv-280/motor/api/Auth/call/authenticate',
         method:'POST',
         data: userdata,
         responseType: 'json',

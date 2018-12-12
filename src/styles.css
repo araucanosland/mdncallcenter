@@ -147,3 +147,10 @@
 
 
 .hidden { display:none; }
+
+.contenedor-gestiones
+{
+    overflow-y: scroll;
+    max-height: 300px;
+    margin-bottom: 20px;
+}

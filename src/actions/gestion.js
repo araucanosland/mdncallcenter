@@ -28,7 +28,7 @@ export const saveGestion = gestionData => {
       }).then(function(response){
         dispatch(reciveGestion(response.data));
       }).catch(function(response){
-				dispatch(reciveError(response.data));
+				dispatch(reciveError(response));
 			})
   }
 }

@@ -41,7 +41,8 @@ class GestionForm extends Component {
                       HorarioPreferencia: ""
         },
         otrVisible: false,
-        frmVisible: true
+        frmVisible: true,
+        respuestaGestion: {}
       };
 
       Calendario.propTypes = {
@@ -97,7 +98,7 @@ class GestionForm extends Component {
 
     render() {
 
-      const { oficinas } = store.getState();
+      const { oficinas, gestion } = store.getState();
       const { hijos, otrVisible, frmVisible } = this.state;
       const busquedaState = store.getState().busquedaReducer;
       let _oficinas = [{
@@ -108,11 +109,32 @@ class GestionForm extends Component {
         _oficinas = [..._oficinas, ...oficinas.data]
       }
 
+      console.log({busquedaState})
+
       return (
           <div>
             <form method="post" onSubmit={this.handleSubmitForm} className={frmVisible?'':'hidden'}>
                 <Col md={{ size: 10, offset: 1 }}>
                   <Container>
+                      <h5>Historial de Gestión del Periodo</h5>
+                      <hr />
+                      <Row className="contenedor-gestiones">
+                        <Col xs="12">
+                        {
+                          busquedaState.data.Gestiones.map(gst =>{
+                              return (<Alert key={gst.FechaAccion} color="secondary">
+                                <strong>El: {new Date(gst.FechaAccion).toLocaleDateString()},por: {gst.RutEjecutivo}, {gst.IdOficina == '555' ? 'Call Center': 'La Araucana'}</strong>
+                                <p className="quote">{gst.Descripcion}</p>
+                                <small>{ gst.FechaCompromete !=null ? 'Próxima Gestión: ' + new Date(gst.FechaCompromete).toLocaleDateString() : ''  }</small>
+                              </Alert>)
+                          })
+                        }
+                          
+ 
+                        </Col>
+                      </Row>
+
+
 
                       <h5>Contactabilidad</h5>
                       <hr />
@@ -165,6 +187,7 @@ class GestionForm extends Component {
                                 locale="es-cl"
                                 className="form-control"
                                 dateFormat="DD-MM-YYYY"
+                                autoComplete="off"
                               />
                           </FormGroup>
                         </Col>
@@ -202,17 +225,21 @@ class GestionForm extends Component {
                           <Button type="submit" color="primary">Derivar</Button>
                         </Col>
                       </Row>
+                      <br />
+                      <br/>
                   </Container>
                 </Col>
               </form>
-              <div className={frmVisible?'hidden':''}>
-              <Col md={{ size: 10, offset: 1 }}>
-                <Container>
-                  <Alert color="success">
-                    Derivación realizada con éxito.
-                  </Alert>
-                </Container>
-              </Col>
+              <div className={frmVisible && !gestion.isLoading? 'hidden':''}>
+                <Col md={{ size: 10, offset: 1 }}>
+                  <Container>
+                    <Alert color={gestion.isLoading==false && gestion.error==true ? "warning":"success"}>
+                      {
+                        gestion.isLoading == false && gestion.error ? "Error al derivar: " + gestion.data.response.data.ExceptionMessage : "Derivación realizada con éxito"
+                      }
+                    </Alert>
+                  </Container>
+                </Col>
               </div>
           </div>
 
